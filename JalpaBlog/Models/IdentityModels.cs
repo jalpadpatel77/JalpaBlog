@@ -14,7 +14,7 @@ namespace JalpaBlog.Models
         public string LastName { get; set; }
         public string DisplayName { get; set; }
 
-        //Virtual Nave Section
+        //Virtual Nav Section
         public virtual ICollection<Comment> Comments { get; set; }
 
         public ApplicationUser()
@@ -48,8 +48,7 @@ namespace JalpaBlog.Models
 
         public DbSet<BlogPost> BlogPosts { get; set; }
         public DbSet<Comment> Comments { get; set; }
-
-
+        public object Posts { get; internal set; }
     }
 
 }
