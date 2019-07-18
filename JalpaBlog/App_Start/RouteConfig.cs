@@ -7,7 +7,7 @@ using System.Web.Routing;
 
 namespace JalpaBlog
 {
-    public class RouteConfig
+    public class RouteConfig        
     {
         public static void RegisterRoutes(RouteCollection routes)
         {
@@ -21,7 +21,7 @@ namespace JalpaBlog
                     action = "Details",
                     slug = UrlParameter.Optional
                 });
-            routes.MapRoute(
+            routes.MapRoute(       // maping for the incoming  url
                 name: "Default",
                 url: "{controller}/{action}/{id}",
                 defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional }

@@ -24,11 +24,11 @@ namespace JalpaBlog.Controllers
         // GET: BlogPosts/Details/5
         public ActionResult Details(string Slug)
         {
-            if (String.IsNullOrWhiteSpace(Slug))
+            if (String.IsNullOrWhiteSpace(Slug))  //if nothing for slug
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            BlogPost blogPost = db.BlogPosts.FirstOrDefault(p => p.Slug == Slug);
+            BlogPost blogPost = db.BlogPosts.FirstOrDefault(p => p.Slug == Slug);//
             if (blogPost == null)
             {
                 return HttpNotFound();
@@ -47,14 +47,17 @@ namespace JalpaBlog.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        //whatever is in the bind goes into the post- bind is like exclutionary prpocess, if it's not in bind it's not coming in
+
         public ActionResult Create([Bind(Include = "Title,Abstract,Body,Published")] BlogPost blogPost)
         {
             if (ModelState.IsValid)
             {
-                var Slug = StringUtilities.SlugMaker(blogPost.Title);
+                
+                var Slug = StringUtilities.SlugMaker(blogPost.Title);   //create slug
 
                 //No guarantee that we can use slug bcuz it is empty
-                if (String.IsNullOrWhiteSpace(Slug))
+                if (string.IsNullOrWhiteSpace(Slug))
                 {
                     ModelState.AddModelError("Title", "Invalid title");
                     return View(blogPost);
@@ -64,16 +67,16 @@ namespace JalpaBlog.Controllers
                 //If the slug is already pressent in the db. its bad
                 if (db.BlogPosts.Any(p => p.Slug == Slug))
                 {
-                    ModelState.AddModelError("Title", "The title must be unique");
-                    return View(blogPost);
+                    ModelState.AddModelError("Title", "The title must be unique"); // "Title" name of property it is targeting
+                    return View(blogPost);                // passing back into create view
                 }
                 //otherwise slug is good
-                blogPost.Slug = Slug;
-                blogPost.Created = DateTimeOffset.Now;
+                blogPost.Slug = Slug;            // sets slug the property value to slug
+                blogPost.Created = DateTimeOffset.Now; 
                                              
-                db.BlogPosts.Add(blogPost);
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                db.BlogPosts.Add(blogPost); // data we created is added 
+                db.SaveChanges(); // save changes
+                return RedirectToAction("Index"); // takes user to index action-blogpost controller
             }
 
             return View(blogPost);
