@@ -48,7 +48,7 @@ namespace JalpaBlog.Models
 
         public DbSet<BlogPost> BlogPosts { get; set; }
         public DbSet<Comment> Comments { get; set; }
-        public object Posts { get; internal set; }
+        public object BlogPost { get; internal set; }
     }
 
 }

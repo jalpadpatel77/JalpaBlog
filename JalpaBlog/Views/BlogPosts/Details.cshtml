@@ -26,29 +26,30 @@
             @Html.DisplayFor(model => model.Abstract)
         </dd>
 
-        <dt>
+       @* <dt>
             @Html.DisplayNameFor(model => model.Slug)
         </dt>
 
         <dd>
             @Html.DisplayFor(model => model.Slug)
-        </dd>
+        </dd>*@
 
         <dt>
             @Html.DisplayNameFor(model => model.Body)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.Body)
+            @*Html.DisplayFor(model => model.Body)*@
+            @Html.Raw(Model.Body)
         </dd>
 
-        <dt>
+       @**<dt>
             @Html.DisplayNameFor(model => model.MediaUrl)
         </dt>
 
         <dd>
             @Html.DisplayFor(model => model.MediaUrl)
-        </dd>
+        </dd>*@
 
         <dt>
             @Html.DisplayNameFor(model => model.Published)

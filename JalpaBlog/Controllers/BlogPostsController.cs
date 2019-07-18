@@ -22,13 +22,13 @@ namespace JalpaBlog.Controllers
         }
 
         // GET: BlogPosts/Details/5
-        public ActionResult Details(int? id)
+        public ActionResult Details(string Slug)
         {
-            if (id == null)
+            if (String.IsNullOrWhiteSpace(Slug))
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            BlogPost blogPost = db.BlogPosts.Find(id);
+            BlogPost blogPost = db.BlogPosts.FirstOrDefault(p => p.Slug == Slug);
             if (blogPost == null)
             {
                 return HttpNotFound();
@@ -52,23 +52,25 @@ namespace JalpaBlog.Controllers
             if (ModelState.IsValid)
             {
                 var Slug = StringUtilities.SlugMaker(blogPost.Title);
+
+                //No guarantee that we can use slug bcuz it is empty
                 if (String.IsNullOrWhiteSpace(Slug))
                 {
                     ModelState.AddModelError("Title", "Invalid title");
                     return View(blogPost);
+
                 }
-                if (db.Posts.Any(p => p.Slug == Slug))
+
+                //If the slug is already pressent in the db. its bad
+                if (db.BlogPosts.Any(p => p.Slug == Slug))
                 {
                     ModelState.AddModelError("Title", "The title must be unique");
                     return View(blogPost);
                 }
-
+                //otherwise slug is good
                 blogPost.Slug = Slug;
                 blogPost.Created = DateTimeOffset.Now;
-
-
-
-
+                                             
                 db.BlogPosts.Add(blogPost);
                 db.SaveChanges();
                 return RedirectToAction("Index");
@@ -101,10 +103,36 @@ namespace JalpaBlog.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Entry(blogPost).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                var newSlug = StringUtilities.SlugMaker(blogPost.Title);
+                if (newSlug != blogPost.Slug)
+                {
+
+                    if (String.IsNullOrWhiteSpace(newSlug))
+                    {
+                        ModelState.AddModelError("Title", "Invalid title");
+                        return View(blogPost);
+
+                    }
+
+                    //If the slug is already pressent in the db. its bad
+                    if (db.BlogPosts.Any(p => p.Slug == newSlug))
+                    {
+                        ModelState.AddModelError("Title", "The title must be unique");
+                        return View(blogPost);
+                    }
+
+                    blogPost.Slug = newSlug;
+                    
+                }
+                //db.Entry(blogPost).State = EntityState.Modified;
+                blogPost.Updated= DateTimeOffset.Now;
+                db.BlogPosts.Add(blogPost);
+                    db.SaveChanges();
+                    return RedirectToAction("Index");
+            
+
             }
+             
             return View(blogPost);
         }
 
