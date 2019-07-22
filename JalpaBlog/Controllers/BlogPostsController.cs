@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Web;
@@ -14,6 +15,7 @@ namespace JalpaBlog.Controllers
     public class BlogPostsController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();
+        private object image;
 
         [Authorize(Roles = "Admin")]
         public ActionResult AdminIndex()
@@ -59,13 +61,14 @@ namespace JalpaBlog.Controllers
         [ValidateAntiForgeryToken]
         //whatever is in the bind goes into the post- bind is like exclutionary prpocess, if it's not in bind it's not coming in
       //  [Authorize(Roles = "Admin")]
-        public ActionResult Create([Bind(Include = "Title,Abstract,Body,Published")] BlogPost blogPost)
+        public ActionResult Create([Bind(Include = "Title,Abstract,MediaURL,Body,Published")] BlogPost blogPost, HttpPostedFileBase image)
         {
             if (ModelState.IsValid)
             {
                 
                 var Slug = StringUtilities.SlugMaker(blogPost.Title);   //create slug
 
+                
                 //No guarantee that we can use slug bcuz it is empty
                 if (string.IsNullOrWhiteSpace(Slug))
                 {
@@ -80,6 +83,13 @@ namespace JalpaBlog.Controllers
                     ModelState.AddModelError("Title", "The title must be unique"); // "Title" name of property it is targeting
                     return View(blogPost);                // passing back into create view
                 }
+
+                if (ImageUploadValidator.IsWebFriendlyImage(image))
+                {
+                    var fileName = Path.GetFileName(image.FileName);
+                    image.SaveAs(Path.Combine(Server.MapPath("~/Uploads/"), fileName));
+                    blogPost.MediaURL = "/Uploads/" + fileName;
+                }               
                 //otherwise slug is good
                 blogPost.Slug = Slug;            // sets slug the property value to slug
                 blogPost.Created = DateTimeOffset.Now; //sets the time automatically
@@ -112,7 +122,7 @@ namespace JalpaBlog.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,Title,Abstract,Slug,Body,MediaUrl,Published,Created,Updated")] BlogPost blogPost)
+        public ActionResult Edit([Bind(Include = "Id,Title,Abstract,Slug,Body,MediaUrl,Published,Created,Updated")] BlogPost blogPost, HttpPostedFileBase image)
         {
             if (ModelState.IsValid)
             {
@@ -134,16 +144,24 @@ namespace JalpaBlog.Controllers
                         return View(blogPost);
                     }
 
+                    
+
                     blogPost.Slug = newSlug;
                     
+                }
+                if (ImageUploadValidator.IsWebFriendlyImage(image))
+                {
+                    var fileName = Path.GetFileName(image.FileName);
+                    image.SaveAs(Path.Combine(Server.MapPath("~/Uploads/"), fileName));
+                    blogPost.MediaURL = "/Uploads/" + fileName;
                 }
                 //db.Entry(blogPost).State = EntityState.Modified;
                 blogPost.Updated= DateTimeOffset.Now;
                 db.BlogPosts.Add(blogPost);
                     db.SaveChanges();
-                    return RedirectToAction("Index");
-            
-
+                                
+                return RedirectToAction("Index");
+             
             }
              
             return View(blogPost);

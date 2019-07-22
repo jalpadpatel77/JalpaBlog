@@ -22,18 +22,20 @@
                                 
                                 <div class="blog-content-body">
                                     <div class="post-meta">
-                                        <!--<span class="author mr-2"><img src="~/images/person_1.jpg" alt="Colorlib"> Colorlib</span>&bullet;-->
-                                        <span class="mr-2"><h2>@Html.DisplayFor(model => post.Created)</h2> </span> &bullet;
-                                        <!-- <span class="ml-2"><span class="fa fa-comments"></span> 3</span>-->
+                                        
+                                        <h2 class="Model-Created">@post.Created.ToString("MMMM d, yyyy")</h2>
                                     </div>
-                                                                       
-                                    <h2>@Html.DisplayFor(model => post.Title)</h2>
-                                    
-                                    <h2>@Html.DisplayFor(model => post.Abstract)</h2>
 
+
+                                    
+                                    <h2 class="Model-Title">@post.Title</h2>
+
+
+                                    <h2 class="Model-Abstract">@post.Abstract</h2>
                                 </div>
                             </a>
                         </div>
+
                     }
                 </div>
 
@@ -79,65 +81,7 @@
                         </div>
                     </div>
                 </div>
-                <!-- END sidebar-box -->
-                <!---
-        <div class="sidebar-box">
-            <h3 class="heading">Popular Posts</h3>
-            <div class="post-entry-sidebar">
-                <ul>
-                    <li>
-                        <a href="">
-                            <img src="~/images/img_2.jpg" alt="Image placeholder" class="mr-4">
-                            <div class="text">
-                                <h4>How to Find the Video Games of Your Youth</h4>
-                                <div class="post-meta">
-                                    <span class="mr-2">March 15, 2018 </span>
-                                </div>
-                            </div>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="">
-                            <img src="~/images/img_4.jpg" alt="Image placeholder" class="mr-4">
-                            <div class="text">
-                                <h4>How to Find the Video Games of Your Youth</h4>
-                                <div class="post-meta">
-                                    <span class="mr-2">March 15, 2018 </span>
-                                </div>
-                            </div>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="">
-                            <img src="~/images/img_12.jpg" alt="Image placeholder" class="mr-4">
-                            <div class="text">
-                                <h4>How to Find the Video Games of Your Youth</h4>
-                                <div class="post-meta">
-                                    <span class="mr-2">March 15, 2018 </span>
-                                </div>
-                            </div>
-                        </a>
-                    </li>
-                </ul>
-            </div>
-        </div>
-        <!-- END sidebar-box -->
-                <!--
-            <div class="sidebar-box">
-                <h3 class="heading">Categories</h3>
-                <ul class="categories">
-                    <li><a href="#">Food <span>(12)</span></a></li>
-                    <li><a href="#">Travel <span>(22)</span></a></li>
-                    <li><a href="#">Lifestyle <span>(37)</span></a></li>
-                    <li><a href="#">Business <span>(42)</span></a></li>
-                    <li><a href="#">Adventure <span>(14)</span></a></li>
-                </ul>
-            </div>
-             END sidebar-box -->
-                
-           
-                <!-- </div>-->
-                <!-- END sidebar -->
+              
 
             </div>
         </div>

@@ -21,6 +21,7 @@ namespace JalpaBlog.Models
 
         // Virtual Nav Section
         public virtual ICollection<Comment> Comments { get; set; }
+        public string MediaURL { get; internal set; }
 
         public BlogPost()
         {

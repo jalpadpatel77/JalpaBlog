@@ -3,30 +3,27 @@
 @{
     ViewBag.Title = "Details";
 }
+<!--PAge Header-->
+
 
 <section class="site-section py-lg">
     <div class="container">
-
         <div class="row blog-entries element-animate">
 
             <div class="col-md-12 col-lg-8 main-content">
                 <!--  <img src="~/images/img_10.jpg" alt="Image" class="img-fluid mb-5">-->
-                <div class="post-meta">
+                @{
 
-                    <span class="mr-2">@Model.Created </span> &bullet;
-
-                </div>
+                    if (Model.MediaURL != null)
+                    {
+                        <img class="img-responsive" src="@Model.MediaURL" alt="" />
+                    }
+                }
 
                 <h1 class="Model-Title">@Model.Title</h1>
 
-
-
                 <!-- <a class="category mb-5" href="#">Food</a> <a class="category mb-5" href="#">Travel</a>-->
 
-                <div class="post-content-body">
-                    <p>blog blog blog </p>
-
-                </div>
             </div>
         </div>
 
@@ -36,9 +33,9 @@
         <div class="pt-5">
             <ul>
                 <li class="comment">
-                    <div class="comment-body">
-                        <h3> by Jean Doe</h3>
-                    
+                    <div class="post-meta">
+                        <h3> by Jalpa Patel</h3>
+                        <span class="mr-2">@Model.Created.ToString("MMMM d, yyyy")</span> &bullet;
                     </div>
                 </li>
             </ul>
