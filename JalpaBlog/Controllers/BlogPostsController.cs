@@ -15,11 +15,18 @@ namespace JalpaBlog.Controllers
     {
         private ApplicationDbContext db = new ApplicationDbContext();
 
+        [Authorize(Roles = "Admin")]
+        public ActionResult AdminIndex()
+        {
+            return View("AdminIndex", db.BlogPosts);
+
+        }
+
         // GET: BlogPosts
         public ActionResult Index()
         {
             var publishedBlogPosts = db.BlogPosts.Where(b => b.Published).OrderByDescending(b => b.Created).ToList();
-            return View(publishedBlogPosts);
+            return View("Index",publishedBlogPosts);
         }
 
         // GET: BlogPosts/Details/5
@@ -38,6 +45,8 @@ namespace JalpaBlog.Controllers
         }
 
         // GET: BlogPosts/Create
+
+       // [Authorize(Roles = "Admin")]
         public ActionResult Create()
         {
             return View();
@@ -49,7 +58,7 @@ namespace JalpaBlog.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         //whatever is in the bind goes into the post- bind is like exclutionary prpocess, if it's not in bind it's not coming in
-
+      //  [Authorize(Roles = "Admin")]
         public ActionResult Create([Bind(Include = "Title,Abstract,Body,Published")] BlogPost blogPost)
         {
             if (ModelState.IsValid)
@@ -73,14 +82,14 @@ namespace JalpaBlog.Controllers
                 }
                 //otherwise slug is good
                 blogPost.Slug = Slug;            // sets slug the property value to slug
-                blogPost.Created = DateTimeOffset.Now; 
+                blogPost.Created = DateTimeOffset.Now; //sets the time automatically
                                              
                 db.BlogPosts.Add(blogPost); // data we created is added 
                 db.SaveChanges(); // save changes
                 return RedirectToAction("Index"); // takes user to index action-blogpost controller
             }
 
-            return View(blogPost);
+            return View(blogPost);  //If anything bad return to blogPost
         }
 
         // GET: BlogPosts/Edit/5

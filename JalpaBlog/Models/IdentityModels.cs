@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System.Collections;
+using System.Collections.Generic;
 using System.Data.Entity;
 using System.Security.Claims;
 using System.Threading.Tasks;
@@ -48,7 +49,7 @@ namespace JalpaBlog.Models
 
         public DbSet<BlogPost> BlogPosts { get; set; }
         public DbSet<Comment> Comments { get; set; }
-        public object BlogPost { get; internal set; }
+        public IEnumerable ApplicationUsers { get; internal set; }
     }
 
 }

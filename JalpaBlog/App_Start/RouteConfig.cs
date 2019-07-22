@@ -12,6 +12,7 @@ namespace JalpaBlog
         public static void RegisterRoutes(RouteCollection routes)
         {
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
+            //to Navigate post
             routes.MapRoute(
                 name: "NewSlug",
                 url: "Blog/{slug}",
