@@ -5,8 +5,6 @@
 }
 
 
- 
-
 <section class="site-section py-sm">
     <div class="container">
         <div class="row">
@@ -21,17 +19,16 @@
                     {
                         <div class="col-md-6">
                             <a href="@Url.Action("Details", "BlogPosts", new { slug = post.Slug })" class="blog-entry element-animate" data-animate-effect="fadeIn">
-                                <img src="~/images/img_5.jpg" alt="Image placeholder">
+                                
                                 <div class="blog-content-body">
                                     <div class="post-meta">
-                                        <span class="author mr-2"><img src="~/images/person_1.jpg" alt="Colorlib"> Colorlib</span>&bullet;
-                                        <span class="mr-2">March 15, 2018 </span> &bullet;
-                                        <span class="ml-2"><span class="fa fa-comments"></span> 3</span>
+                                        <!--<span class="author mr-2"><img src="~/images/person_1.jpg" alt="Colorlib"> Colorlib</span>&bullet;-->
+                                        <span class="mr-2"><h2>@Html.DisplayFor(model => post.Created)</h2> </span> &bullet;
+                                        <!-- <span class="ml-2"><span class="fa fa-comments"></span> 3</span>-->
                                     </div>
-                                   
+                                                                       
                                     <h2>@Html.DisplayFor(model => post.Title)</h2>
-
-
+                                    
                                     <h2>@Html.DisplayFor(model => post.Abstract)</h2>
 
                                 </div>
