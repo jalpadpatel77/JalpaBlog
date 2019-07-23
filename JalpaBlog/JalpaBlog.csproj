@@ -175,6 +175,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\EmailModel.cs" />
     <Compile Include="Utilities\ImageUploadValidator.cs" />
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -220,6 +221,7 @@
     <Content Include="fonts\ionicons\fonts\ionicons.ttf" />
     <Content Include="fonts\ionicons\fonts\ionicons.woff" />
     <Content Include="images\.DS_Store" />
+    <Content Include="private.config" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="images\big_image_1.jpg" />
     <Content Include="images\big_image_3.jpg" />

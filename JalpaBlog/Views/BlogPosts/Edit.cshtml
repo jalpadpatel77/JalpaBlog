@@ -17,7 +17,7 @@
     @Html.HiddenFor(model => model.Id)
     @Html.HiddenFor(model => model.Slug)
 
-    @Html.HiddenFor(model => model.MediaURL)
+    @Html.HiddenFor(model => model.MediaUrl)
     @Html.HiddenFor(model => model.Created)
 
     <div class="form-group">
@@ -56,7 +56,7 @@
         @Html.LabelFor(model => model.MediaUrl, htmlAttributes: new { @class = "control-label col-md-2" })
         <div class="col-md-10">
 
-            <input name="image" type="file" class="form-control" id="fileUpload" />
+            <input name="image" type="file" class="form-control"  />
             @Html.ValidationMessageFor(model => model.MediaUrl, "", new { @class = "text-danger" })
         </div>
     </div>

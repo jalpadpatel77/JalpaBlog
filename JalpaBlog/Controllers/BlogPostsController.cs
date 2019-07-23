@@ -12,17 +12,20 @@ using JalpaBlog.Utilities;
 
 namespace JalpaBlog.Controllers
 {
+    [Authorize(Roles = "Admin")]
+    //[Authorize(Roles = "Admin,Moderator")]
     public class BlogPostsController : Controller
     {
+       
         private ApplicationDbContext db = new ApplicationDbContext();
-        private object image;
-
-        [Authorize(Roles = "Admin")]
+       //private object image;
+        
         public ActionResult AdminIndex()
         {
-            return View("AdminIndex", db.BlogPosts);
-
+            return View("Index", db.BlogPosts.ToList());
         }
+        //Inside the controller we create  some methods
+        //every public method of the controller is action method
 
         // GET: BlogPosts
         public ActionResult Index()
@@ -32,6 +35,7 @@ namespace JalpaBlog.Controllers
         }
 
         // GET: BlogPosts/Details/5
+        [AllowAnonymous]
         public ActionResult Details(string Slug)
         {
             if (String.IsNullOrWhiteSpace(Slug))  //if nothing for slug
@@ -48,7 +52,7 @@ namespace JalpaBlog.Controllers
 
         // GET: BlogPosts/Create
 
-       // [Authorize(Roles = "Admin")]
+       //[Authorize(Roles = "Admin")]
         public ActionResult Create()
         {
             return View();
@@ -60,15 +64,21 @@ namespace JalpaBlog.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         //whatever is in the bind goes into the post- bind is like exclutionary prpocess, if it's not in bind it's not coming in
-      //  [Authorize(Roles = "Admin")]
-        public ActionResult Create([Bind(Include = "Title,Abstract,MediaURL,Body,Published")] BlogPost blogPost, HttpPostedFileBase image)
+              public ActionResult Create([Bind(Include = "Title,Abstract,MediaURL,Body,Published")] BlogPost blogPost, HttpPostedFileBase image)
         {
             if (ModelState.IsValid)
             {
-                
-                var Slug = StringUtilities.SlugMaker(blogPost.Title);   //create slug
 
-                
+
+                if (ImageUploadValidator.IsWebFriendlyImage(image))
+                {
+                    var fileName = Path.GetFileName(image.FileName);
+                    image.SaveAs(Path.Combine(Server.MapPath("~/Uploads/"), fileName));
+                    blogPost.MediaUrl = "/Uploads/" + fileName;
+                }
+
+                var Slug = StringUtilities.SlugMaker(blogPost.Title);   //create slug
+                                
                 //No guarantee that we can use slug bcuz it is empty
                 if (string.IsNullOrWhiteSpace(Slug))
                 {
@@ -83,13 +93,7 @@ namespace JalpaBlog.Controllers
                     ModelState.AddModelError("Title", "The title must be unique"); // "Title" name of property it is targeting
                     return View(blogPost);                // passing back into create view
                 }
-
-                if (ImageUploadValidator.IsWebFriendlyImage(image))
-                {
-                    var fileName = Path.GetFileName(image.FileName);
-                    image.SaveAs(Path.Combine(Server.MapPath("~/Uploads/"), fileName));
-                    blogPost.MediaURL = "/Uploads/" + fileName;
-                }               
+   
                 //otherwise slug is good
                 blogPost.Slug = Slug;            // sets slug the property value to slug
                 blogPost.Created = DateTimeOffset.Now; //sets the time automatically
@@ -126,6 +130,14 @@ namespace JalpaBlog.Controllers
         {
             if (ModelState.IsValid)
             {
+
+                if (ImageUploadValidator.IsWebFriendlyImage(image))
+                {
+                    var fileName = Path.GetFileName(image.FileName);
+                    image.SaveAs(Path.Combine(Server.MapPath("~/Uploads/"), fileName));
+                    blogPost.MediaUrl = "/Uploads/" + fileName;
+                }
+
                 var newSlug = StringUtilities.SlugMaker(blogPost.Title);
                 if (newSlug != blogPost.Slug)
                 {
@@ -149,12 +161,7 @@ namespace JalpaBlog.Controllers
                     blogPost.Slug = newSlug;
                     
                 }
-                if (ImageUploadValidator.IsWebFriendlyImage(image))
-                {
-                    var fileName = Path.GetFileName(image.FileName);
-                    image.SaveAs(Path.Combine(Server.MapPath("~/Uploads/"), fileName));
-                    blogPost.MediaURL = "/Uploads/" + fileName;
-                }
+               
                 //db.Entry(blogPost).State = EntityState.Modified;
                 blogPost.Updated= DateTimeOffset.Now;
                 db.BlogPosts.Add(blogPost);

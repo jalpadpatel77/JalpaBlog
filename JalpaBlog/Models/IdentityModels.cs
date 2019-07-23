@@ -16,7 +16,7 @@ namespace JalpaBlog.Models
         public string DisplayName { get; set; }
 
         //Virtual Nav Section
-        public virtual ICollection<Comment> Comments { get; set; }
+        public virtual ICollection<Comment> Comments { get; set; }  //defines method to manipulate generic collection
 
         public ApplicationUser()
         {

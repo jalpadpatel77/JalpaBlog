@@ -7,9 +7,9 @@ using System.Web;
 
 namespace JalpaBlog
 {
-    public class ImageUploadValidator
+    public static class ImageUploadValidator
     {
-       public static bool IswebFriendlyImage(HttpPostedFileBase file)
+       public static bool IsWebFriendlyImage(HttpPostedFileBase file)
         {
             if (file == null)
                 return false;
@@ -29,10 +29,6 @@ namespace JalpaBlog
                 return false;
             }
         }
-
-        internal static bool IsWebFriendlyImage(object image)
-        {
-            throw new NotImplementedException();
-        }
+        
     }
 }
