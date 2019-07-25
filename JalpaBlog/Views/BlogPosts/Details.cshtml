@@ -11,39 +11,29 @@
         <div class="row blog-entries element-animate">
 
             <div class="col-md-12 col-lg-8 main-content">
-                <!--  <img src="~/images/img_10.jpg" alt="Image" class="img-fluid mb-5">-->
-               @{ if (Model.MediaUrl != null)
-                   {
-                        <img class="img-responsive" src="@Model.MediaUrl" alt="" />
-                       }
-                   }
-
                 <h1 class="Model-Title">@Model.Title</h1>
-
-                <!-- <a class="category mb-5" href="#">Food</a> <a class="category mb-5" href="#">Travel</a>-->
-
+                @{ if (Model.MediaUrl != null)
+                    {
+                        <img class="img-responsive" src="@Model.MediaUrl" alt="" />
+                    }
+                }
+                <div class="post-meta">
+                    <h5> by Jalpa Patel</h5>
+                    <span class="mr-2">@Model.Created.ToString("MMMM d, yyyy")</span> &bullet;
+                </div>
             </div>
         </div>
 
         <!--Abstract-->
-       <h1 class="Model-Abstract">@Model.Abstract</h1>
+        <h4 class="Model-Abstract">@Model.Abstract</h4>
        
-        <div class="pt-5">
-            <ul>
-                <li class="comment">
-                    <div class="post-meta">
-                        <h3> by Jalpa Patel</h3>
-                        <span class="mr-2">@Model.Created.ToString("MMMM d, yyyy")</span> &bullet;
-                    </div>
-                </li>
-            </ul>
-        </div>
-
+        @Html.Raw(Model.Body)
         <!-- END comment-list -->
 
         <div class="comment-form-wrap pt-5">
-            <h3 class="mb-5">Leave a comment</h3>
+            
             <form action="#" class="p-5 bg-light">
+                <h4 class="mb-5">Leave a comment</h4>
                 <div class="form-group">
                     <label for="message">Message</label>
                     <textarea name="" id="message" cols="30" rows="10" class="form-control"></textarea>

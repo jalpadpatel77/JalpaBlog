@@ -1,4 +1,7 @@
-﻿@model IEnumerable<JalpaBlog.Models.BlogPost>
+﻿
+@using PagedList;
+@using PagedList.Mvc;
+@model IPagedList<JalpaBlog.Models.BlogPost>
 
 @{
     ViewBag.Title = "Home Page";
@@ -9,7 +12,7 @@
     <div class="container">
         <div class="row">
             <div class="col-md-6">
-                <h2 class="mb-4">Latest Posts</h2>
+                <h1 class="mb-4">Latest Posts</h1>
             </div>
         </div>
         <div class="row blog-entries">
@@ -19,17 +22,16 @@
                     {
                         <div class="col-md-6">
                             <a href="@Url.Action("Details", "BlogPosts", new { slug = post.Slug })" class="blog-entry element-animate" data-animate-effect="fadeIn">
-                                
+
                                 <div class="blog-content-body">
                                     <div class="post-meta">
-                                        
-                                        <h2 class="Model-MediaUrl">@post.MediaUrl</h2>
-                                         
-                                       
+
+                                        <img class="img-responsive" src="@post.MediaUrl" alt="Image Placeholder" />
+
                                         <h2 class="Model-Created">@post.Created.ToString("MMMM d, yyyy")</h2>
                                     </div>
-                                    
-                                    <h2 class="Model-Title">@post.Title</h2>
+
+                                    <h3 class="Model-Title">@post.Title</h3>
 
                                     <h2 class="Model-Abstract">@post.Abstract</h2>
                                 </div>
@@ -37,27 +39,29 @@
                         </div>
                     }
                 </div>
-                <div class="row mt-5">
-                    <div class="col-md-12 text-center">
-                        <nav aria-label="Page navigation" class="text-center">
-                            <ul class="pagination">
-                                <li class="page-item  active"><a class="page-link" href="#">&lt;</a></li>
-                                <li class="page-item"><a class="page-link" href="#">1</a></li>
+                @* <div class="row mt-5">
+                        <div class="col-md-12 text-center">
+                            <nav aria-label="Page navigation" class="text-center">
+                                <ul class="pagination">
+                                    <li class="page-item  active"><a class="page-link" href="#">&lt;</a></li>
+                                    <li class="page-item"><a class="page-link" href="#">1</a></li>
 
-                                <li class="page-item"><a class="page-link" href="#">&gt;</a></li>
-                            </ul>
-                        </nav>
-                    </div>
-                </div>
+                                    <li class="page-item"><a class="page-link" href="#">&gt;</a></li>
+                                </ul>
+                            </nav>
+                        </div>
+                    </div>*@
+                Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
+                @Html.PagedListPager(Model, page => Url.Action("Index", new { page }))
 
             </div><!-- END main-content -->
 
 
             <div class="col-md-12 col-lg-4 sidebar">
-                <div class="sidebar-box search-form-wrap">
+                <div class="sidebar-box search-form-wrap" style="color:aqua">
                     <form action="#" class="search-form">
-                        <div class="form-group">
-                            <span class="icon fa fa-search"></span>
+                        <div class="form-group" style="color:aqua">
+                            <span class="icon fa fa-search" style="color:aqua"></span>
                             <input type="text" class="form-control" id="s" placeholder="Type a keyword and hit enter">
                         </div>
                     </form>
@@ -67,19 +71,17 @@
                     <div class="bio text-center">
                         <img src="~/images/person_1.jpg" alt="Image Placeholder" class="img-fluid">
                         <div class="bio-body">
-                            <h2>David Craig</h2>
-                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Exercitationem facilis sunt repellendus excepturi beatae porro debitis voluptate nulla quo veniam fuga sit molestias minus.</p>
-                            <!--<p><a href="#" class="btn btn-primary btn-sm rounded">Read my bio</a></p>-->
+                            <h2>Jalpa Patel</h2>
+                            <p>I am Software Developer and Designer.</p>
+
                             <p class="social">
-                                <a href="#" class="p-2"><span class="fa fa-facebook"></span></a>
-                                <a href="#" class="p-2"><span class="fa fa-twitter"></span></a>
-                                <a href="#" class="p-2"><span class="fa fa-instagram"></span></a>
-                                <a href="#" class="p-2"><span class="fa fa-youtube-play"></span></a>
+                                <a href="https://www.facebook.com/jalpa.patel.1800" class="p-2"><span class="fa fa-facebook"></span></a>
+                                <a href="https://twitter.com/ImJalpa77" class="p-2"><span class="fa fa-twitter"></span></a>
+
                             </p>
                         </div>
                     </div>
                 </div>
-              
 
             </div>
         </div>

@@ -1,4 +1,4 @@
-﻿using System;
+﻿ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Mail;
@@ -7,10 +7,13 @@ using System.Web;
 using System.Web.Configuration;
 using System.Web.Mvc;
 using JalpaBlog.Models;
+using PagedList;
+using PagedList.Mvc;
+
 
 namespace JalpaBlog.Controllers
 {
-    //[Authorize] //Needs authorization to all
+   
     public class HomeController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();
@@ -18,9 +21,11 @@ namespace JalpaBlog.Controllers
         //[Authorize(Roles = "Admin")]
 
         //[Authorize(Roles = "Admin,Moderator")]
-        public ActionResult Index()
+        public ActionResult Index(int? page)
         {
-            var publishedBlogPosts = db.BlogPosts.Where(b => b.Published).OrderByDescending(b => b.Created).ToList();
+            int pageSize = 4;
+            int pageNumber = page ?? 1;
+            var publishedBlogPosts = db.BlogPosts.Where(b => b.Published).OrderByDescending(b => b.Created).ToPagedList(pageNumber, pageSize);
             return View(publishedBlogPosts);
         }
        
@@ -53,23 +58,20 @@ namespace JalpaBlog.Controllers
             {
                 try
                 {
-                    var body = "<p>Email From: <bold>{0}</bold>({1})</p><p>Message:</p><p>{2}</p >";
-                    var from = "MyPortfolio<example@email.com>";
-                    model.Body = "This is a message from your portfolio site.  The name and the email of the contacting person is above.";
+                    //var body = "<p>Email From: <bold>{0}</bold>({1})</p><p>Message:</p><p>{2}</p >";
+                   var from = $"{model.FromEmail}<jalpadpatel77@gmail.com>";
+                    //model.Body = "This is a message from your portfolio site.  The name and the email of the contacting person is above.";
 
-                    var email = new MailMessage(from,
-                               WebConfigurationManager.AppSettings["emailto"])
+                    var email = new MailMessage(from, WebConfigurationManager.AppSettings["emailto"])
                     {
-                        Subject = "Portfolio Contact Email",
-                        Body = string.Format(body, model.FromName, model.FromEmail,
-                                             model.Body),
+                        Subject = model.Subject,
+                        Body = model.Body,
                         IsBodyHtml = true
                     };
-
                     var svc = new PersonalEmail();
                     await svc.SendAsync(email);
 
-                    return View(new EmailModel());
+                    return RedirectToAction("Index");
                 }
                 catch (Exception ex)
                 {

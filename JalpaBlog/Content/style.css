@@ -4,7 +4,7 @@ body {
   font-weight: 300;
   font-size: 18px;
   line-height: 1.9;
-  color: #6c757d; }
+  color:darkblue }
 
 a {
   -webkit-transition: .3s all ease;
@@ -15,7 +15,7 @@ a {
     text-decoration: none; }
 
 h1, h2, h3, h4, h5 {
-  color: #000;
+  color:blue, brown,midnightblue,darkgreen,darkcyan;
   font-family: "Josefin Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji"; }
 
 .wrap {
@@ -26,18 +26,19 @@ h1, h2, h3, h4, h5 {
   box-shadow: 0 0 40px 0 rgba(0, 0, 0, 0.1); }
 
 header {
-  position: relative;
-  top: 0;
-  left: 0;
-  width: 100%;
-  z-index: 5;
-  font-weight: 400;
-  background: #fff !important; }
+    position: relative;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 5;
+    font-weight: 400;
+    background: rgba(255, 193, 7,0.28);
+}
   header .navbar-brand {
     text-transform: uppercase;
     letter-spacing: .2em;
     font-weight: 400;
-    color: #fff !important; }
+    color:aqua }
   header .navbar-collapse {
     position: relative; }
   header .navbar {
@@ -121,7 +122,7 @@ header {
       bottom: -10px; }
 
 .site-logo a {
-  color: #000;
+  color:darkcyan;
   font-size: 90px; }
   @media (max-width: 991.98px) {
     .site-logo a {
@@ -137,7 +138,9 @@ header {
     .top-bar .social a:hover, .top-bar .search-icon a:hover {
       opacity: 1; }
   .top-bar .social {
-    text-align: left; }
+    text-align: left;
+    color:burlywood;
+  }
   .top-bar .search-icon {
     text-align: right; }
 
@@ -210,7 +213,7 @@ header {
         display: inline-block; }
     .a-block .text h3 {
       color: #fff;
-      border: 1px solidi red; }
+      border: 1px solid red; }
     .a-block .text p {
       color: #fff; }
   .a-block:hover:before {
@@ -1160,10 +1163,9 @@ textarea.form-control {
     color: #fff; }
   .search-top input:-ms-input-placeholder {
     color: #fff; }
-  .search-top input::-ms-input-placeholder {
+  .search-top input:-ms-input-placeholder {
     color: #fff; }
-  .search-top input::placeholder {
-    color: #fff; }
+ 
   @media (max-width: 767.98px) {
     .search-top input {
       width: 150px;
@@ -1201,7 +1203,7 @@ textarea.form-control {
   position: relative; }
   .search-form .form-group #s {
     padding-right: 50px;
-    background: #f7f7f7;
+    background: rgba(40, 167, 69,0.5);
     padding: 15px 15px;
     border: none; }
 

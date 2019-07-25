@@ -9,6 +9,8 @@ using System.Web;
 using System.Web.Mvc;
 using JalpaBlog.Models;
 using JalpaBlog.Utilities;
+using PagedList;
+using PagedList.Mvc;
 
 namespace JalpaBlog.Controllers
 {
@@ -30,11 +32,14 @@ namespace JalpaBlog.Controllers
         // GET: BlogPosts
         public ActionResult Index()
         {
-            var publishedBlogPosts = db.BlogPosts.Where(b => b.Published).OrderByDescending(b => b.Created).ToList();
+            //int pageSize = 3;
+            //int pageNumber = page ?? 1;
+            
+var publishedBlogPosts = db.BlogPosts.Where(b => b.Published).OrderByDescending(b => b.Created).ToList();
             return View("Index",publishedBlogPosts);
         }
 
-        // GET: BlogPosts/Details/5
+        // GET: BlogPosts/Details/
         [AllowAnonymous]
         public ActionResult Details(string Slug)
         {
