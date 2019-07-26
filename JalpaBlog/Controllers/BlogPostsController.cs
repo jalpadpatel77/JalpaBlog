@@ -192,7 +192,7 @@ namespace JalpaBlog.Controllers
                         return View(blogPost);
                     }
 
-                    
+                   
 
                     blogPost.Slug = newSlug;
                     

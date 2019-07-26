@@ -11,6 +11,8 @@ namespace JalpaBlog
 {
     public partial class Startup
     {
+        public object WebConfigrationManager { get; private set; }
+
         // For more information on configuring authentication, please visit https://go.microsoft.com/fwlink/?LinkId=301864
         public void ConfigureAuth(IAppBuilder app)
         {
@@ -58,11 +60,13 @@ namespace JalpaBlog
             //   appId: "",
             //   appSecret: "");
 
-            //app.UseGoogleAuthentication(new GoogleOAuth2AuthenticationOptions()
-            //{
-            //    ClientId = "",
-            //    ClientSecret = ""
-            //});
+            app.UseGoogleAuthentication(new GoogleOAuth2AuthenticationOptions()
+            {
+                //ClientId = WebConfigrationManager.AppSettings["googleClientId"],
+                ClientId = "535076922997 - ksi2nb2f64ob1u1mcgo9ug99bcgb38s9.apps.googleusercontent.com",
+                //ClientSecret = WebConfigrationManager.AppSettings["googleClientSecret"],
+                ClientSecret = "QLiMblrG9HbMI2gXHzwcjIX1 ",
+            });
         }
     }
 }

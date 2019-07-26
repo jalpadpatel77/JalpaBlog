@@ -19,11 +19,11 @@
                     @foreach (var post in Model)
                     {
                     <div class="col-md-12">
-                        <a href="@Url.Action("Details", "BlogPosts", new { slug = post.Slug })" class="a-block d-flex align-items-center height-lg" >
+                        <a href="@Url.Action("Details", "BlogPosts", new { slug = post.Slug })" class="a-block d-flex align-items-center height-lg" style="background-image: url(@post.MediaUrl); " >
                             <div class="text half-to-full">
                                 <div class="blog-content-body">
-                                    <img class="img-responsive"  src="@Html.DisplayFor(model=> post.MediaUrl)" alt="Image Placeholder" />                              
-                                                                       
+                                    @*  <img class="img-responsive" src="@Html.DisplayFor(model=> post.MediaUrl)" alt="Image Placeholder" />*@
+
                                     <h2 class="Model-Created">@post.Created.ToString("MMMM d, yyyy")</h2>
                                     <h3 class="Model-Title">@post.Title</h3>
                                     <h2 class="Model-Abstract">@post.Abstract</h2>
