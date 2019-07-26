@@ -13,7 +13,7 @@ using PagedList.Mvc;
 
 namespace JalpaBlog.Controllers
 {
-   
+   [RequireHttps]
     public class HomeController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();
@@ -21,19 +21,43 @@ namespace JalpaBlog.Controllers
         //[Authorize(Roles = "Admin")]
 
         //[Authorize(Roles = "Admin,Moderator")]
-        public ActionResult Index(int? page)
+        public ActionResult Index(int? page, string searchStr)
         {
+            ViewBag.Search = searchStr;
+            var blogList = IndexSearch(searchStr);
+
             int pageSize = 4;
             int pageNumber = page ?? 1;
-            var publishedBlogPosts = db.BlogPosts.Where(b => b.Published).OrderByDescending(b => b.Created).ToPagedList(pageNumber, pageSize);
-            return View(publishedBlogPosts);
+            //var publishedBlogPosts = db.BlogPosts.Where(b => b.Published).OrderByDescending(b => b.Created).ToPagedList(pageNumber, pageSize);
+            return View(blogList.ToPagedList(pageNumber, pageSize));
         }
-       
+
+        public IQueryable<BlogPost> IndexSearch(string searchStr)
+        {
+            IQueryable<BlogPost> result = null;
+            if (searchStr != null)
+            {
+                result = db.BlogPosts.AsQueryable();
+                result = result.Where(p => p.Title.Contains(searchStr) ||
+                                           p.Body.Contains(searchStr) ||
+                                           p.Comments.Any(c => c.Body.Contains(searchStr) ||
+                                           c.Author.FirstName.Contains(searchStr) ||
+                                           c.Author.LastName.Contains(searchStr) ||
+                                           c.Author.Email.Contains(searchStr)));
+            }
+            else
+            {
+                result = db.BlogPosts.AsQueryable();
+            }
+            return result.OrderByDescending(p => p.Created);
+        }
+
+
         //public ActionResult unpublishedIndex()
         //{
-         //   var publishedBlogPosts = db.BlogPosts.Where(b => b.Published).OrderByDescending(b => b.Created).ToList();
-         //   return View("Index",publishedBlogPosts);
-       // }
+        //   var publishedBlogPosts = db.BlogPosts.Where(b => b.Published).OrderByDescending(b => b.Created).ToList();
+        //   return View("Index",publishedBlogPosts);
+        // }
 
         public ActionResult About()
         {

@@ -16,6 +16,7 @@ namespace JalpaBlog.Controllers
 {
     [Authorize(Roles = "Admin")]
     //[Authorize(Roles = "Admin,Moderator")]
+    [RequireHttps]
     public class BlogPostsController : Controller
     {
        
@@ -30,15 +31,45 @@ namespace JalpaBlog.Controllers
         //every public method of the controller is action method
 
         // GET: BlogPosts
-        public ActionResult Index()
+        public ActionResult Index(int? page, string searchStr)
         {
-            //int pageSize = 3;
-            //int pageNumber = page ?? 1;
+            ViewBag.Search = searchStr;
+            var blogList = IndexSearch(searchStr);
+            int pageSize = 3;
+            int pageNumber = page ?? 1;
             
-var publishedBlogPosts = db.BlogPosts.Where(b => b.Published).OrderByDescending(b => b.Created).ToList();
-            return View("Index",publishedBlogPosts);
+//var publishedBlogPosts = db.BlogPosts.Where(b => b.Published).OrderByDescending(b => b.Created).ToList();
+            return View(blogList.ToPagedList(pageNumber, pageSize));
         }
 
+     // private object IndexSearch(string searchStr)
+      //  {
+       //    throw new NotImplementedException();
+       // }
+
+        //post: Iquearble/ Index
+
+        public IQueryable<BlogPost> IndexSearch(string searchStr)
+        {
+            IQueryable<BlogPost> result = null;
+            if (searchStr != null)
+            {
+                result = db.BlogPosts.AsQueryable();
+                result = result.Where(p => p.Title.Contains(searchStr) ||
+                                           p.Body.Contains(searchStr) ||
+                                           p.Comments.Any(c => c.Body.Contains(searchStr) ||
+                                           c.Author.FirstName.Contains(searchStr) ||
+                                           c.Author.LastName.Contains(searchStr) ||
+                                           c.Author.Email.Contains(searchStr)));
+            }
+            else
+            {
+                result = db.BlogPosts.AsQueryable();
+            }
+            return result.OrderByDescending(p => p.Created);
+        }
+                   
+        
         // GET: BlogPosts/Details/
         [AllowAnonymous]
         public ActionResult Details(string Slug)

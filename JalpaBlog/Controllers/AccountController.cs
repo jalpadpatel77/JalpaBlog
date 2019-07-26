@@ -15,6 +15,7 @@ using System.Net.Mail;
 namespace JalpaBlog.Controllers
 {
     [Authorize]
+    [RequireHttps]
     public class AccountController : Controller
     {
         private ApplicationSignInManager _signInManager;

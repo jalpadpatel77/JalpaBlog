@@ -8,6 +8,40 @@
 }
 
 
+<!--Adding Carousel-->
+
+<section class="site-section pt-5 pb-5">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+
+                <div class="owl-carousel owl-theme home-slider">
+                    @foreach (var post in Model)
+                    {
+                    <div class="col-md-12">
+                        <a href="@Url.Action("Details", "BlogPosts", new { slug = post.Slug })" class="a-block d-flex align-items-center height-lg" >
+                            <div class="text half-to-full">
+                                <div class="blog-content-body">
+                                    <img class="img-responsive"  src="@Html.DisplayFor(model=> post.MediaUrl)" alt="Image Placeholder" />                              
+                                                                       
+                                    <h2 class="Model-Created">@post.Created.ToString("MMMM d, yyyy")</h2>
+                                    <h3 class="Model-Title">@post.Title</h3>
+                                    <h2 class="Model-Abstract">@post.Abstract</h2>
+                                </div>
+                            </div>
+                        </a>
+                    </div>  
+               
+                    }
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+</section>
+
+<!--Ending Carousel-->
 <section class="site-section py-sm">
     <div class="container">
         <div class="row">
@@ -22,11 +56,11 @@
                     {
                         <div class="col-md-6">
                             <a href="@Url.Action("Details", "BlogPosts", new { slug = post.Slug })" class="blog-entry element-animate" data-animate-effect="fadeIn">
-
+                               
                                 <div class="blog-content-body">
                                     <div class="post-meta">
 
-                                        <img class="img-responsive" src="@post.MediaUrl" alt="Image Placeholder" />
+                                        <img class="img-responsive" src="@Html.DisplayFor(model=> post.MediaUrl)" alt="Image Placeholder" />
 
                                         <h2 class="Model-Created">@post.Created.ToString("MMMM d, yyyy")</h2>
                                     </div>
@@ -39,37 +73,31 @@
                         </div>
                     }
                 </div>
-                @* <div class="row mt-5">
-                        <div class="col-md-12 text-center">
-                            <nav aria-label="Page navigation" class="text-center">
-                                <ul class="pagination">
-                                    <li class="page-item  active"><a class="page-link" href="#">&lt;</a></li>
-                                    <li class="page-item"><a class="page-link" href="#">1</a></li>
 
-                                    <li class="page-item"><a class="page-link" href="#">&gt;</a></li>
-                                </ul>
-                            </nav>
-                        </div>
-                    </div>*@
+                <!--Page List-->
                 Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
-                @Html.PagedListPager(Model, page => Url.Action("Index", new { page }))
+                @Html.PagedListPager(Model, page => Url.Action("Index", new { page, searchStr = ViewBag.Search }));
 
             </div><!-- END main-content -->
-
-
+            <!--search bar-->
             <div class="col-md-12 col-lg-4 sidebar">
-                <div class="sidebar-box search-form-wrap" style="color:aqua">
-                    <form action="#" class="search-form">
-                        <div class="form-group" style="color:aqua">
-                            <span class="icon fa fa-search" style="color:aqua"></span>
-                            <input type="text" class="form-control" id="s" placeholder="Type a keyword and hit enter">
-                        </div>
-                    </form>
-                </div>
-                <!-- END sidebar-box -->
+                @using (Html.BeginForm("Index", "Home", FormMethod.Get, htmlAttributes: new { @class = "form" }))
+                {
+                    <div class="controls controls-row search-row">
+                        <input id="searchStr" name="searchStr" class=" input-block-level " type="text"
+                               placeholder=" Search">
+                        <button class=" btn btn-success " type="submit">Submit </button>
+                    </div>
+                }
+
                 <div class="sidebar-box">
+
+                    <!-- END sidebar-box -->
+
                     <div class="bio text-center">
-                        <img src="~/images/person_1.jpg" alt="Image Placeholder" class="img-fluid">
+
+                        <!--<img src="~/images/person_1.jpg" alt="Image Placeholder" class="img-fluid">-->
+
                         <div class="bio-body">
                             <h2>Jalpa Patel</h2>
                             <p>I am Software Developer and Designer.</p>

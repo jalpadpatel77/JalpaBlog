@@ -229,6 +229,7 @@
     <Content Include="fonts\ionicons\fonts\ionicons.woff" />
     <Content Include="images\.DS_Store" />
     <Content Include="private.config" />
+    <None Include="Properties\PublishProfiles\JalpaBlog - Web Deploy.pubxml" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="images\big_image_1.jpg" />
     <Content Include="images\big_image_3.jpg" />
@@ -394,6 +395,11 @@
     <Content Include="Scripts\tinymce\themes\silver\theme.min.js" />
     <Content Include="Scripts\tinymce\tinymce.js" />
     <Content Include="Scripts\tinymce\tinymce.min.js" />
+    <Content Include="Uploads\Coffee.jpg" />
+    <Content Include="Uploads\Comp.jpg" />
+    <Content Include="Uploads\pic14.jpeg" />
+    <Content Include="Uploads\pic3.jpg" />
+    <Content Include="Uploads\pic9.jpg" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -447,7 +453,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Uploads\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
