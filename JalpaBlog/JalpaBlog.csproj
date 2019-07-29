@@ -199,7 +199,7 @@
     <Content Include="Content\owl.carousel.min.css" />
     <Content Include="Content\PagedList.css" />
     <Content Include="Content\style.css" />
-    <Content Include="favicon.ico" />
+    <Content Include="images\favicon.ico" />
     <Content Include="fonts\flaticon\backup.txt" />
     <Content Include="fonts\flaticon\font\flaticon.css" />
     <Content Include="fonts\flaticon\font\flaticon.html" />
@@ -228,6 +228,8 @@
     <Content Include="fonts\ionicons\fonts\ionicons.ttf" />
     <Content Include="fonts\ionicons\fonts\ionicons.woff" />
     <Content Include="images\.DS_Store" />
+    <Content Include="images\JdpLogo.png" />
+    <Content Include="images\logo-via-logohub.png" />
     <Content Include="private.config" />
     <None Include="Properties\PublishProfiles\JalpaBlog - Web Deploy.pubxml" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
@@ -397,9 +399,15 @@
     <Content Include="Scripts\tinymce\tinymce.min.js" />
     <Content Include="Uploads\Coffee.jpg" />
     <Content Include="Uploads\Comp.jpg" />
+    <Content Include="Uploads\images.jfif" />
+    <Content Include="Uploads\paging.jfif" />
+    <Content Include="Uploads\password.jfif" />
+    <Content Include="Uploads\pic12.jfif" />
     <Content Include="Uploads\pic14.jpeg" />
     <Content Include="Uploads\pic3.jpg" />
+    <Content Include="Uploads\pic8.jpg" />
     <Content Include="Uploads\pic9.jpg" />
+    <Content Include="Uploads\searching.jfif" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>

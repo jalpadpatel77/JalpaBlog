@@ -3,7 +3,7 @@
 @{
     ViewBag.Title = "Details";
 }
-<!--PAge Header-->
+<!--Page Header-->
 
 
 <section class="site-section py-lg">
@@ -28,26 +28,18 @@
         <h4 class="Model-Abstract">@Model.Abstract</h4>
 
         @Html.Raw(Model.Body)
-        <!-- END comment-list -->
-        @* <div class="comment-form-wrap pt-5">
 
-                <form action="#" class="p-5 bg-light">
-                    <h4 class="mb-5">Leave a comment</h4>
-                    <div class="form-group">
-                        <label for="message">Message</label>
-                        <textarea name="" id="message" cols="30" rows="10" class="form-control"></textarea>
-                    </div>
-                    <div class="form-group">
-                        <input type="submit" value="Post Comment" class="btn btn-primary">
-                    </div>
 
-                </form>
-            </div>*@
     </div>
 
 </section>
+
+<!-- Begin comment-list -->
 @*Conditoinally render the "Add Comment"form*@
 @*Create a form to collect the comment from the logged in user*@
+
+@*<h4 style="text-align:center;"> Please Leave a comment</h4>*@
+<h4 style="text-align:center;"> (Please Login first to leave a comment)</h4>
 
 @if (User.Identity.IsAuthenticated)
 {
@@ -58,48 +50,61 @@
         @Html.HiddenFor(model => model.Slug)
         @Html.Hidden("BlogPostId", Model.Id)
 
-
-        <h4> Leave a comment</h4>
-       
+        <div class="col-md-12 text-center h3">
             <textarea name="commentBody" rows="5" cols="100"></textarea>
-       
-            <button class=" btn btn-primary" type="Submit" value="Post">Post Comment</button>
-        
+        </div>
+        <div class="col-md-12 text-center h3">
+            <button class=" btn btn-primary" type="Submit" value="Post">Add Comment</button>
+        </div>
+
+
+
         <br />
-     }
-           
-
-            <hr />
-            @*Dispaying the comments associated with this BlogPost*@
-            <div class="row">
-                <div class="col-md-12 text-center h3">
-                    Comment
-                </div>
-            </div>
-            <br />
-            <div class="row">
-                <div class="col-md-12 text-center h3">
-                    @{
-                        var count = Model.Comments.Count();
-                        var word = count == 1 ? "comment" : "comments";
-                    }
-                    (@count@word)
-                </div>
-            </div>
     }
-            @foreach (var comment in Model.Comments.OrderByDescending(c => c.Created))
-            {
-                <hr />
-                <div class="row">
-                    <div class="col-md-12 text-center">
-                        Written by @comment.Author.Email on @comment.Created.ToString("MMMM d,yyyy")
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-12 text-center">
-                        @comment.Body
-                    </div>
-                </div>
 
+    <hr />
+    @*Dispaying the comments associated with this BlogPost*@
+    <div class="row">
+        <div class="col-md-12 text-center h3">
+            Comment
+        </div>
+    </div>
+    <br />
+    <div class="row">
+        <div class="col-md-12 text-center h3">
+            @{
+                var count = Model.Comments.Count();
+                var word = count == 1 ? "comment" : "comments";
             }
+            (@count@word)
+        </div>
+    </div>
+}
+@foreach (var comment in Model.Comments.OrderByDescending(c => c.Created))
+{
+    <hr />
+    <div class="row">
+        <div class="col-md-12 text-center">
+            Written by @comment.Author.Email on @comment.Created.ToString("MMMM d,yyyy")
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12 text-center">
+            @comment.Body
+        </div>
+    </div>
+
+    <div>
+
+        @if (User.IsInRole("Admin") || User.IsInRole("Moderator"))
+        {
+            <br />
+            <a href='@Url.Action("Edit","Comments", new { id = comment.Id })'>Edit</a> <span>&nbsp;</span>
+            <a href='@Url.Action("Delete","Comments", new { id = comment.Id })'>Delete</a>
+        }
+
+    </div>
+
+
+}
 

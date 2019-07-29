@@ -94,11 +94,13 @@ namespace JalpaBlog.Controllers
         {
             if (ModelState.IsValid)
             {
-                comment.Body = commentBody;
+               // comment.Body = commentBody;
                 db.Entry(comment).State = EntityState.Modified;
+                comment.Updated = DateTimeOffset.Now;
                 db.SaveChanges();
-                return RedirectToAction("Details", "BlogPosts", new { slug = slug });
+                return RedirectToAction("Index");
             }
+           
             ViewBag.AuthorId = new SelectList(db.Users, "Id", "FirstName", comment.AuthorId);
             ViewBag.BlogPostId = new SelectList(db.BlogPosts, "Id", "Title", comment.BlogPostId);
             return View(comment);

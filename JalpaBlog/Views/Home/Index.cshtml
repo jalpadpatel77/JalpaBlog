@@ -14,7 +14,6 @@
     <div class="container">
         <div class="row">
             <div class="col-md-12">
-
                 <div class="owl-carousel owl-theme home-slider">
                     @foreach (var post in Model)
                     {
@@ -83,16 +82,20 @@
             <div class="col-md-12 col-lg-4 sidebar">
                 @using (Html.BeginForm("Index", "Home", FormMethod.Get, htmlAttributes: new { @class = "form" }))
                 {
-                    <div class="controls controls-row search-row">
+                <div class=" row">
+                    <div class="col-md-6 controls controls-row search-row">
                         <input id="searchStr" name="searchStr" class=" input-block-level " type="text"
                                placeholder=" Search">
-                        <button class=" btn btn-success " type="submit">Submit </button>
                     </div>
+                    <div class="col-md-6 controls controls-row search-row">
+                        <button class=" btn btn-primary " type="submit">Submit </button>
+                    </div>
+                </div>
                 }
-
+                <br/>
                 <div class="sidebar-box">
 
-                    <!-- END sidebar-box -->
+                    <!--  sidebar-box -->
 
                     <div class="bio text-center">
 

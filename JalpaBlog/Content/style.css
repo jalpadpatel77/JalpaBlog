@@ -213,7 +213,7 @@ header {
         display: inline-block; }
     .a-block .text h3 {
       color: #fff;
-      border: 1px solid red; }
+      }
     .a-block .text p {
       color: #fff; }
   .a-block:hover:before {
