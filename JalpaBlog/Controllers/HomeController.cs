@@ -28,7 +28,7 @@ namespace JalpaBlog.Controllers
 
             int pageSize = 4;
             int pageNumber = page ?? 1;
-            //var publishedBlogPosts = db.BlogPosts.Where(b => b.Published).OrderByDescending(b => b.Created).ToPagedList(pageNumber, pageSize);
+          //  var publishedBlogPosts = db.BlogPosts.Where(b => b.Published).OrderByDescending(b => b.Created).ToPagedList(pageNumber, pageSize);
             return View(blogList.ToPagedList(pageNumber, pageSize));
         }
 
@@ -49,14 +49,15 @@ namespace JalpaBlog.Controllers
             {
                 result = db.BlogPosts.AsQueryable();
             }
+            
             return result.OrderByDescending(p => p.Created);
         }
 
 
         //public ActionResult unpublishedIndex()
         //{
-        //   var publishedBlogPosts = db.BlogPosts.Where(b => b.Published).OrderByDescending(b => b.Created).ToList();
-        //   return View("Index",publishedBlogPosts);
+        //  var publishedBlogPosts = db.BlogPosts.Where(b => b.Published).OrderByDescending(b => b.Created).ToList();
+        //  return View("Index",publishedBlogPosts);
         // }
 
         public ActionResult About()

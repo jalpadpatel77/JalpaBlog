@@ -199,7 +199,7 @@
     <Content Include="Content\owl.carousel.min.css" />
     <Content Include="Content\PagedList.css" />
     <Content Include="Content\style.css" />
-    <Content Include="images\favicon.ico" />
+    <Content Include="favicon.ico" />
     <Content Include="fonts\flaticon\backup.txt" />
     <Content Include="fonts\flaticon\font\flaticon.css" />
     <Content Include="fonts\flaticon\font\flaticon.html" />

@@ -105,7 +105,6 @@ namespace JalpaBlog.Controllers
             if (ModelState.IsValid)
             {
 
-
                 if (ImageUploadValidator.IsWebFriendlyImage(image))
                 {
                     var fileName = Path.GetFileName(image.FileName);

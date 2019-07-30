@@ -65,7 +65,7 @@ namespace JalpaBlog
                //ClientId = WebConfigrationManager.AppSettings["googleClientId"],
                 ClientId = "535076922997-ksi2nb2f64ob1u1mcgo9ug99bcgb38s9.apps.googleusercontent.com",
                // ClientSecret = WebConfigrationManager.AppSettings["googleClientSecret"],
-                ClientSecret = "QLiMblrG9HbMI2gXHzwcjIX1 ",
+                ClientSecret = "QLiMblrG9HbMI2gXHzwcjIX1",
             });
         }
     }
