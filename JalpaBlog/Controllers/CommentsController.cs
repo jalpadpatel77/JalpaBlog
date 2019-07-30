@@ -11,6 +11,7 @@ using Microsoft.AspNet.Identity;
 
 namespace JalpaBlog.Controllers
 {
+    [Authorize(Roles = "Admin")]
     [RequireHttps]
     public class CommentsController : Controller
     {
@@ -52,7 +53,7 @@ namespace JalpaBlog.Controllers
         [HttpPost]
 
 
-
+        [AllowAnonymous]
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "BlogPostId")] Comment comment, string commentBody, string slug)
         {
