@@ -15,7 +15,7 @@ using PagedList.Mvc;
 namespace JalpaBlog.Controllers
 {
     [Authorize(Roles = "Admin")]
-    //[Authorize(Roles = "Admin,Moderator")]
+    
     [RequireHttps]
     public class BlogPostsController : Controller
     {
@@ -37,8 +37,8 @@ namespace JalpaBlog.Controllers
             var blogList = IndexSearch(searchStr);
             int pageSize = 3;
             int pageNumber = page ?? 1;
-            
-//var publishedBlogPosts = db.BlogPosts.Where(b => b.Published).OrderByDescending(b => b.Created).ToList();
+           
+
             return View(blogList.ToPagedList(pageNumber, pageSize));
         }
 
@@ -78,7 +78,7 @@ namespace JalpaBlog.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            BlogPost blogPost = db.BlogPosts.FirstOrDefault(p => p.Slug == Slug);//
+            BlogPost blogPost = db.BlogPosts.FirstOrDefault(p => p.Slug == Slug);
             if (blogPost == null)
             {
                 return HttpNotFound();
@@ -113,6 +113,9 @@ namespace JalpaBlog.Controllers
                 }
 
                 var Slug = StringUtilities.SlugMaker(blogPost.Title);   //create slug
+
+                //var slugmaker = new StringUtilities();
+                //var slug = slugmaker.MakeSlug(blogpost.Title);
                                 
                 //No guarantee that we can use slug bcuz it is empty
                 if (string.IsNullOrWhiteSpace(Slug))
